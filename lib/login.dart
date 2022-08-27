@@ -23,6 +23,46 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
+  Widget _TextFormField ( controller ,  keyboardType ,  hintText,  textValidator , obscureText , suffixIcon ){
+    return TextFormField(
+      controller: controller,
+      keyboardType: keyboardType,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(
+          color: Colors.black26,
+        ),
+        suffixIcon: suffixIcon ? IconButton(
+          onPressed: () {
+            setState(() {
+              _passwordVisible = !_passwordVisible;
+            });
+          },
+          icon: Icon(
+            _passwordVisible
+                ? Icons.visibility
+                : Icons.visibility_off,
+            color: Colors.black26,
+          ),
+        ) : null,
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.black12),
+          borderRadius: BorderRadius.circular(10),
+        ),
+          focusedBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.green),
+              borderRadius: BorderRadius.circular(10)),
+      ),
+      validator: (value){
+        if(value!.isEmpty) {
+          return '$textValidator';
+        }
+        return null;
+      },
+    );
+  }
+
   bool _passwordVisible = true;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -58,67 +98,11 @@ class _LoginScreen extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                        hintText: "Email address",
-                        hintStyle: const TextStyle(
-                          color: Colors.black26,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.green),
-                            borderRadius: BorderRadius.circular(10))),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Email address must not be Empty';
-                      }
-                      return null;
-                    },
-                  ),
+                  _TextFormField (_emailController, TextInputType.emailAddress, 'EmailAddress' , 'EmailAddress must not be empty' , false , false),
                   const SizedBox(
                     height: 15,
                   ),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: _passwordVisible,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                        hintText: "Password",
-                        hintStyle: const TextStyle(
-                          color: Colors.black26,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            color: Colors.black26,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.black12),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(color: Colors.green),
-                            borderRadius: BorderRadius.circular(10))),
-                    validator: (password) {
-                      if (password!.isEmpty) {
-                        return 'Password must not be Empty';
-                      }
-                      return null;
-                    },
-                  ),
+                  _TextFormField(_passwordController, TextInputType.visiblePassword, 'Password', 'Password must not be empty', _passwordVisible, true),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(200, 8, 0, 20),
                     child: _Text('Forget Password?', FontWeight.bold, 15,
