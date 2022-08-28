@@ -7,9 +7,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreen extends State<SignUpScreen> {
-
-
-  Widget _Text(String text, FontWeight fontWeight, double size, Color color) {
+  Widget _Text(text, fontWeight, size, color) {
     return Text(
       text,
       style: TextStyle(
@@ -20,7 +18,8 @@ class _SignUpScreen extends State<SignUpScreen> {
     );
   }
 
-  Widget _TextFormField ( controller ,  keyboardType ,  hintText,  textValidator , obscureText , suffixIcon ){
+  Widget _TextFormField(controller, keyboardType, hintText, textValidator,
+      obscureText, suffixIcon) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
@@ -30,19 +29,19 @@ class _SignUpScreen extends State<SignUpScreen> {
         hintStyle: const TextStyle(
           color: Colors.black26,
         ),
-        suffixIcon: suffixIcon ? IconButton(
-          onPressed: () {
-            setState(() {
-              _passwordVisible = !_passwordVisible;
-            });
-          },
-          icon: Icon(
-            _passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-            color: Colors.black26,
-          ),
-        ) : null,
+        suffixIcon: suffixIcon
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black26,
+                ),
+              )
+            : null,
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.black12),
           borderRadius: BorderRadius.circular(10),
@@ -51,15 +50,14 @@ class _SignUpScreen extends State<SignUpScreen> {
             borderSide: const BorderSide(color: Colors.green),
             borderRadius: BorderRadius.circular(10)),
       ),
-      validator: (value){
-        if(value!.isEmpty) {
+      validator: (value) {
+        if (value!.isEmpty) {
           return '$textValidator';
         }
         return null;
       },
     );
   }
-
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -121,15 +119,28 @@ class _SignUpScreen extends State<SignUpScreen> {
                   const SizedBox(
                     height: 30,
                   ),
-                  _TextFormField(_nameController, TextInputType.text, "Full Name", 'Name must not be empty', false, false),
+                  _TextFormField(_nameController, TextInputType.text,
+                      "Full Name", 'Name must not be empty', false, false),
                   const SizedBox(
                     height: 15,
                   ),
-                  _TextFormField(_emailController, TextInputType.emailAddress, "Email address", 'Email Address must not be empty', false, false),
+                  _TextFormField(
+                      _emailController,
+                      TextInputType.emailAddress,
+                      "Email address",
+                      'Email Address must not be empty',
+                      false,
+                      false),
                   const SizedBox(
                     height: 15,
                   ),
-                  _TextFormField(_passwordController, TextInputType.visiblePassword, 'Password', 'Password must not be empty', _passwordVisible, true),
+                  _TextFormField(
+                      _passwordController,
+                      TextInputType.visiblePassword,
+                      'Password',
+                      'Password must not be empty',
+                      _passwordVisible,
+                      true),
                   const SizedBox(
                     height: 25,
                   ),

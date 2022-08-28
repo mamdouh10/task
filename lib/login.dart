@@ -9,21 +9,19 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-
-
-  Widget _Text(String text, FontWeight fontWeight, double size, Color color) {
+  Widget _Text(text, fontWeight, size, color) {
     return Text(
       text,
       style: TextStyle(
         fontWeight: fontWeight,
         fontSize: size,
         color: color,
-        //wordSpacing: -7,
       ),
     );
   }
 
-  Widget _TextFormField ( controller ,  keyboardType ,  hintText,  textValidator , obscureText , suffixIcon ){
+  Widget _TextFormField(controller, keyboardType, hintText, textValidator,
+      obscureText, suffixIcon) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
@@ -33,29 +31,29 @@ class _LoginScreen extends State<LoginScreen> {
         hintStyle: const TextStyle(
           color: Colors.black26,
         ),
-        suffixIcon: suffixIcon ? IconButton(
-          onPressed: () {
-            setState(() {
-              _passwordVisible = !_passwordVisible;
-            });
-          },
-          icon: Icon(
-            _passwordVisible
-                ? Icons.visibility
-                : Icons.visibility_off,
-            color: Colors.black26,
-          ),
-        ) : null,
+        suffixIcon: suffixIcon
+            ? IconButton(
+                onPressed: () {
+                  setState(() {
+                    _passwordVisible = !_passwordVisible;
+                  });
+                },
+                icon: Icon(
+                  _passwordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.black26,
+                ),
+              )
+            : null,
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.black12),
           borderRadius: BorderRadius.circular(10),
         ),
-          focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.green),
-              borderRadius: BorderRadius.circular(10)),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.green),
+            borderRadius: BorderRadius.circular(10)),
       ),
-      validator: (value){
-        if(value!.isEmpty) {
+      validator: (value) {
+        if (value!.isEmpty) {
           return '$textValidator';
         }
         return null;
@@ -98,11 +96,23 @@ class _LoginScreen extends State<LoginScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  _TextFormField (_emailController, TextInputType.emailAddress, 'EmailAddress' , 'EmailAddress must not be empty' , false , false),
+                  _TextFormField(
+                      _emailController,
+                      TextInputType.emailAddress,
+                      'EmailAddress',
+                      'EmailAddress must not be empty',
+                      false,
+                      false),
                   const SizedBox(
                     height: 15,
                   ),
-                  _TextFormField(_passwordController, TextInputType.visiblePassword, 'Password', 'Password must not be empty', _passwordVisible, true),
+                  _TextFormField(
+                      _passwordController,
+                      TextInputType.visiblePassword,
+                      'Password',
+                      'Password must not be empty',
+                      _passwordVisible,
+                      true),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(200, 8, 0, 20),
                     child: _Text('Forget Password?', FontWeight.bold, 15,
